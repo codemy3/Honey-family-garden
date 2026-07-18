@@ -107,7 +107,9 @@ export default function ReviewsPage() {
                     "/images/outdoor.jpeg", 
                     "/images/indoor2.png"
                   ];
-                  const img = dynamicImages[index % dynamicImages.length];
+                  
+                  // Use the first uploaded image, fallback to dynamic array
+                  const img = review.images && review.images.length > 0 ? review.images[0] : dynamicImages[index % dynamicImages.length];
 
                   return (
                   <div key={review.id} className="review-stamp">

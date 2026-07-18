@@ -18,6 +18,16 @@ export const reviewType = defineType({
       validation: (Rule) => Rule.required().min(1).max(5),
     }),
     defineField({
+      name: "email",
+      title: "Reviewer Email",
+      type: "string",
+    }),
+    defineField({
+      name: "phone",
+      title: "Reviewer Phone",
+      type: "string",
+    }),
+    defineField({
       name: "eventType",
       title: "Event Type",
       type: "string",
@@ -37,11 +47,11 @@ export const reviewType = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "isApproved",
-      title: "Approved for Website?",
-      type: "boolean",
-      description: "Toggle this on to show the review publicly on the website.",
-      initialValue: false,
+      name: "images",
+      title: "Uploaded Photos",
+      type: "array",
+      of: [{ type: "image", options: { hotspot: true } }],
+      description: "Photos uploaded by the reviewer.",
     }),
     defineField({
       name: "createdAt",
@@ -54,12 +64,14 @@ export const reviewType = defineType({
     select: {
       title: "name",
       subtitle: "rating",
-      isApproved: "isApproved",
+      email: "email",
+      phone: "phone",
     },
-    prepare({ title, subtitle, isApproved }) {
+    prepare({ title, subtitle, email, phone }) {
+      const contact = [phone, email].filter(Boolean).join(" | ");
       return {
         title: title || "Anonymous",
-        subtitle: `${subtitle} Stars - ${isApproved ? "🟢 Approved" : "🔴 Needs Approval"}`,
+        subtitle: `${subtitle} Stars${contact ? ` - ${contact}` : ""}`,
       };
     },
   },
