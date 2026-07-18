@@ -153,10 +153,10 @@ export default function ContactContent() {
                 width="100%"
                 height="100%"
                 style={{ border: 0, minHeight: "350px" }}
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62076.95398613024!2d75.5279!3d13.9299!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bbb7de4a1b0b2c5%3A0x8d3a2a45a9f38b0!2sShimoga%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-                allowFullScreen={false}
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3495.964682970075!2d75.8018301!3d14.475113699999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bba2d3489903653%3A0x82d18363735d8fd7!2zSG9uZXkgRmFtaWx5IEdhcmRlbiBSZXN0YXVyYW50IOCyueCyqOCyvyDgsqvgs43gsq_gsr7gsq7gsr_gsrLgsr8g4LKX4LK-4LKw4LON4LKh4LKo4LONIOCysOCzhuCyuOCzjeCyn-Czi-CysOCzhuCyguCyn-CzjQ!5e1!3m2!1sen!2sin!4v1784365791107!5m2!1sen!2sin"
+                allowFullScreen={true}
                 loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+                referrerPolicy="strict-origin-when-cross-origin"
                 title="Honey Family Garden Restaurant Location"
               />
             </div>
