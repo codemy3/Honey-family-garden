@@ -166,11 +166,13 @@ export default function AdminEnquiriesPage() {
 
                   <div className="flex items-center gap-3 shrink-0">
                     <span className="text-charcoal/40 text-xs hidden sm:block">
-                      {new Date(enquiry.eventDate).toLocaleDateString("en-IN", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
+                      {enquiry.eventDate 
+                        ? new Date(enquiry.eventDate).toLocaleDateString("en-IN", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })
+                        : "Date TBD"}
                     </span>
                     <span className="text-charcoal/40 text-xs hidden sm:block">
                       {enquiry.guestCount} guests
@@ -201,12 +203,14 @@ export default function AdminEnquiriesPage() {
                       <div>
                         <p className="text-xs text-charcoal/50 font-semibold uppercase">Event Date</p>
                         <p className="text-sm text-navy">
-                          {new Date(enquiry.eventDate).toLocaleDateString("en-IN", {
-                            weekday: "short",
-                            month: "long",
-                            day: "numeric",
-                            year: "numeric",
-                          })}
+                          {enquiry.eventDate 
+                            ? new Date(enquiry.eventDate).toLocaleDateString("en-IN", {
+                                weekday: "short",
+                                month: "long",
+                                day: "numeric",
+                                year: "numeric",
+                              })
+                            : "TBD"}
                         </p>
                       </div>
                       <div>

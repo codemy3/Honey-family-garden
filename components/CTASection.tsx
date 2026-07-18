@@ -101,13 +101,12 @@ export default function CTASection() {
           Begin Your Journey
         </span>
 
-        {/* Heavy headline reveal */}
         <RevealText
           tag="h2"
           stagger={0.12}
-          className="font-display hfg-display font-light text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#FDFBF7] mb-8 leading-[1.1] max-w-3xl drop-shadow-2xl"
+          className="font-display hfg-display font-light text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white mb-8 leading-[1.1] max-w-3xl drop-shadow-2xl"
         >
-          Ready to Host Your <br />
+          <span className="text-white">Ready to Host Your</span> <br />
           <span className="italic font-medium text-[#D4AF37]">Special Event?</span>
         </RevealText>
 

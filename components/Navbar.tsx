@@ -50,44 +50,70 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Main Navbar - Floating Pill Layout */}
-      <div className="fixed top-4 md:top-6 left-0 right-0 z-40 flex justify-center px-4 pointer-events-none">
-        <nav
+      <div className="fixed top-4 md:top-6 left-0 right-0 z-[100] flex justify-center px-4 lg:px-6 pointer-events-none">
+        {/* Using motion.nav with layout for the smooth shrink/expand effect */}
+        <motion.nav
+          layout
+          transition={{ type: "spring", stiffness: 350, damping: 30 }}
           className={clsx(
-            "pointer-events-auto w-full max-w-7xl rounded-full transition-all duration-500 shadow-2xl flex items-center justify-between pr-2 pl-4 md:pl-6 py-2 border",
+            "pointer-events-auto flex items-center rounded-full transition-colors duration-300",
+            // Mobile layout shift
             isScrolled
-              ? "bg-navy/95 backdrop-blur-xl border-gold/30 shadow-black/50"
-              : "bg-navy/80 backdrop-blur-md border-gold/10 shadow-black/20"
+              ? "w-auto bg-navy/85 backdrop-blur-2xl border border-gold/40 shadow-[0_8px_32px_rgba(0,0,0,0.6)] p-1.5 pr-4 gap-3 lg:gap-0" // The centered pill
+              : "w-full justify-between bg-transparent border border-transparent shadow-none p-1 lg:p-2", // Full width transparent
+            // Desktop overrides (always full width, just changes background)
+            "lg:w-full lg:max-w-7xl lg:justify-between lg:px-6 lg:py-2 lg:pr-6",
+            !isScrolled && "lg:bg-navy/40 lg:backdrop-blur-xl lg:border-gold/20"
           )}
         >
-          {/* Logo - Left Side */}
-          <div className="flex-1 flex justify-start">
+          {/* Logo */}
+          <motion.div layout className="flex-none lg:flex-1 flex justify-start">
             <Link
               href="/"
-              className="flex-shrink-0 group relative"
+              className="flex-shrink-0 group relative block"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <div className="flex items-center gap-3">
+              <motion.div
+                layout
+                className={clsx(
+                  "flex items-center justify-center rounded-full transition-all duration-300",
+                  // Add subtle circle behind logo only when scrolled into the pill
+                  isScrolled
+                    ? "bg-navy/80 lg:bg-transparent p-1.5 lg:p-0 border border-gold/20 lg:border-transparent shadow-inner lg:shadow-none"
+                    : "bg-transparent p-0 border-transparent"
+                )}
+              >
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-14 h-14 overflow-hidden flex items-center justify-center relative"
+                  className="w-10 h-10 lg:w-14 lg:h-14 overflow-hidden flex items-center justify-center relative"
                 >
                   <Image
                     src="/images/logo.png"
                     alt="Honey Family Garden Logo"
                     fill
-                    sizes="56px"
-                    className="object-contain"
+                    sizes="(max-width: 1024px) 40px, 56px"
+                    className="object-contain drop-shadow-md"
                   />
                 </motion.div>
-               
-              </div>
+              </motion.div>
             </Link>
-          </div>
+          </motion.div>
 
-          {/* Desktop Navigation - Center (Perfectly Centered) */}
-          <div className="hidden lg:flex flex-none items-center gap-2 md:gap-6">
+          {/* Vertical Divider (Mobile Scrolled Only) */}
+          <AnimatePresence>
+            {isScrolled && (
+              <motion.div
+                initial={{ opacity: 0, width: 0 }}
+                animate={{ opacity: 1, width: 1 }}
+                exit={{ opacity: 0, width: 0 }}
+                className="lg:hidden h-6 bg-gradient-to-b from-gold/0 via-gold/40 to-gold/0 flex-none"
+              />
+            )}
+          </AnimatePresence>
+
+          {/* Desktop Navigation - Center */}
+          <motion.div layout className="hidden lg:flex flex-none items-center justify-center gap-6">
             {navLinks.map((link) => (
               <NavLink
                 key={link.href}
@@ -97,16 +123,16 @@ export default function Navbar() {
                 isScrolled={isScrolled}
               />
             ))}
-          </div>
+          </motion.div>
 
           {/* Right Actions */}
-          <div className="flex-1 flex justify-end items-center gap-2 sm:gap-4">
+          <motion.div layout className="flex-none lg:flex-1 flex justify-end items-center gap-2 sm:gap-4 lg:pr-0">
             {/* CTA Button - Desktop Only */}
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="hidden lg:block">
               <Link
                 href="/contact"
                 className={clsx(
-                  "hidden md:inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300",
+                  "inline-flex items-center gap-2 px-6 py-3 rounded-full font-bold text-sm transition-all duration-300",
                   "bg-gold text-navy hover:shadow-lg hover:shadow-gold/40"
                 )}
               >
@@ -119,83 +145,92 @@ export default function Navbar() {
                   viewBox="0 0 24 24"
                   whileHover={{ x: 3 }}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" />
                 </motion.svg>
               </Link>
             </motion.div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Transforms on scroll */}
             <motion.button
+              layout
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors mr-1"
+              className={clsx(
+                "lg:hidden flex items-center gap-2.5 transition-all duration-300 rounded-full",
+                // When at the top, it looks like a standalone glass button. When scrolled, it merges into the pill.
+                isScrolled
+                  ? "text-cream hover:text-gold pl-1"
+                  : "text-cream bg-navy/40 backdrop-blur-md p-3 border border-white/10 shadow-lg"
+              )}
               aria-label="Toggle menu"
-              whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <motion.div
-                className="flex flex-col gap-1.5"
-                animate={isMobileMenuOpen ? "open" : "closed"}
-              >
+              {/* "MENU" Text slides in only when scrolled into the pill */}
+              <AnimatePresence>
+                {isScrolled && (
+                  <motion.span
+                    initial={{ opacity: 0, width: 0 }}
+                    animate={{ opacity: 1, width: "auto" }}
+                    exit={{ opacity: 0, width: 0 }}
+                    className="text-[9px] uppercase tracking-[0.2em] font-semibold mt-0.5 overflow-hidden whitespace-nowrap"
+                  >
+                    {isMobileMenuOpen ? "Close" : "Menu"}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+
+              {/* Elegant 2-line staggered hamburger icon */}
+              <motion.div className="flex flex-col items-end justify-center w-5 h-4 gap-1.5 relative">
                 <motion.span
-                  className="block w-5 h-0.5 bg-cream rounded-full"
+                  className="absolute top-[2px] right-0 block h-[1.5px] bg-current rounded-full"
                   variants={{
-                    open: { rotate: 45, y: 7, transition: { duration: 0.3 } },
-                    closed: { rotate: 0, y: 0, transition: { duration: 0.3 } },
+                    closed: { rotate: 0, y: 0, width: "100%" },
+                    open: { rotate: -45, y: 5.5, width: "100%" },
                   }}
+                  initial="closed"
+                  animate={isMobileMenuOpen ? "open" : "closed"}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 />
                 <motion.span
-                  className="block w-5 h-0.5 bg-cream rounded-full"
+                  className="absolute bottom-[2px] right-0 block h-[1.5px] bg-current rounded-full"
                   variants={{
-                    open: { opacity: 0, transition: { duration: 0.2 } },
-                    closed: { opacity: 1, transition: { duration: 0.3 } },
+                    closed: { rotate: 0, y: 0, width: "65%" },
+                    open: { rotate: 45, y: -5.5, width: "100%" },
                   }}
-                />
-                <motion.span
-                  className="block w-5 h-0.5 bg-cream rounded-full"
-                  variants={{
-                    open: { rotate: -45, y: -7, transition: { duration: 0.3 } },
-                    closed: { rotate: 0, y: 0, transition: { duration: 0.3 } },
-                  }}
+                  initial="closed"
+                  animate={isMobileMenuOpen ? "open" : "closed"}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
                 />
               </motion.div>
             </motion.button>
-          </div>
-        </nav>
+          </motion.div>
+        </motion.nav>
       </div>
 
       {/* Mobile Menu - Glass Morphism Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-30 lg:hidden bg-black/40 backdrop-blur-sm"
+              className="fixed inset-0 z-[105] lg:hidden bg-black/40 backdrop-blur-sm"
               onClick={() => setIsMobileMenuOpen(false)}
             />
 
-            {/* Drawer */}
             <motion.div
               initial={{ x: "100%", opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: "100%", opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed right-0 top-0 bottom-0 z-40 w-80 backdrop-blur-xl bg-navy/95 border-l border-gold/20 shadow-2xl flex flex-col overflow-y-auto"
+              className="fixed right-0 top-0 bottom-0 z-[110] w-80 backdrop-blur-xl bg-navy/95 border-l border-gold/20 shadow-2xl flex flex-col overflow-y-auto"
             >
-              {/* Header with close hint */}
               <div className="sticky top-0 p-6 border-b border-gold/20 bg-navy/50">
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="font-display font-bold text-cream">Menu</div>
-                    <div className="text-xs text-gold uppercase tracking-widest">
-                      Navigation
-                    </div>
+                    <div className="text-xs text-gold uppercase tracking-widest">Navigation</div>
                   </div>
                   <motion.button
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -203,20 +238,13 @@ export default function Navbar() {
                     whileTap={{ scale: 0.9 }}
                     className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"
                   >
-                    <svg
-                      className="w-5 h-5 text-cream"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                    >
+                    <svg className="w-5 h-5 text-cream" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </motion.button>
                 </div>
               </div>
 
-              {/* Navigation Links */}
               <div className="flex-1 px-4 py-6 space-y-1">
                 {navLinks.map((link, index) => (
                   <motion.div
@@ -230,17 +258,13 @@ export default function Navbar() {
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={clsx(
                         "block px-4 py-3 rounded-lg font-medium transition-all duration-200 group relative",
-                        pathname === link.href
-                          ? "text-gold bg-gold/10"
-                          : "text-cream/80 hover:text-cream hover:bg-white/5"
+                        pathname === link.href ? "text-gold bg-gold/10" : "text-cream/80 hover:text-cream hover:bg-white/5"
                       )}
                     >
                       <div className="flex items-center gap-3">
                         <motion.div
                           className="w-2 h-2 rounded-full bg-gold"
-                          animate={
-                            pathname === link.href ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }
-                          }
+                          animate={pathname === link.href ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
                         />
                         <span>{link.label}</span>
                       </div>
@@ -249,7 +273,6 @@ export default function Navbar() {
                 ))}
               </div>
 
-              {/* CTA in Mobile Menu */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -268,7 +291,6 @@ export default function Navbar() {
                 </Link>
               </motion.div>
 
-              {/* Footer Info */}
               <div className="px-6 py-4 text-cream/40 text-xs border-t border-gold/10">
                 <p className="font-semibold text-cream/60 mb-1">Honey Family Garden</p>
                 <p>Premium Event Venue</p>
@@ -283,16 +305,7 @@ export default function Navbar() {
 }
 
 // NavLink Component - Desktop Navigation Item with Elegant Underline
-function NavLink({
-  href,
-  label,
-  isActive,
-}: {
-  href: string;
-  label: string;
-  isActive: boolean;
-  isScrolled: boolean;
-}) {
+function NavLink({ href, label, isActive }: { href: string; label: string; isActive: boolean; isScrolled: boolean; }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -306,20 +319,10 @@ function NavLink({
       onMouseLeave={() => setIsHovered(false)}
     >
       {label}
-
-      {/* Elegant underline - appears on active or hover */}
       <motion.div
         className="absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-gold/0 via-gold to-gold/0 rounded-full"
-        animate={{
-          scaleX: isActive || isHovered ? 1 : 0,
-          opacity: isActive || isHovered ? 1 : 0,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 400,
-          damping: 35,
-          duration: 0.3,
-        }}
+        animate={{ scaleX: isActive || isHovered ? 1 : 0, opacity: isActive || isHovered ? 1 : 0 }}
+        transition={{ type: "spring", stiffness: 400, damping: 35, duration: 0.3 }}
       />
     </Link>
   );

@@ -9,12 +9,14 @@ import { Leaf, Snowflake } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
 }
 
 export default function HallInfoPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   
   // Refs for Hero Expansion
+  const heroTrackRef = useRef<HTMLDivElement>(null); 
   const heroTextRef = useRef<HTMLHeadingElement>(null);
   const heroImageWrapperRef = useRef<HTMLDivElement>(null);
   const heroImageRef = useRef<HTMLImageElement>(null);
@@ -29,95 +31,103 @@ export default function HallInfoPage() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion) return;
 
-    let ctx: gsap.Context;
+    const ctx = gsap.context(() => {
+      let mm = gsap.matchMedia();
 
-    // Small delay ensures Next.js has completed routing and DOM is painted
-    // before ScrollTrigger calculates positions for the pinned hero.
-    const timer = setTimeout(() => {
-      window.scrollTo(0, 0);
-      ScrollTrigger.refresh();
-      
-      ctx = gsap.context(() => {
-        // 1. HERO EXPAND SCROLL
+      mm.add({
+        isMobile: "(max-width: 767px)",
+        isDesktop: "(min-width: 768px)"
+      }, (context) => {
+        let { isMobile } = context.conditions as { isMobile: boolean };
+
+        // 1. Set Initial Clip Path
+        const initialClip = isMobile 
+          ? "inset(25% 10% 25% 10% round 16px)" 
+          : "inset(20% 30% 20% 30% round 24px)";
+
+        gsap.set(heroImageWrapperRef.current, { clipPath: initialClip });
+
+        // 2. HERO EXPAND SCROLL
         const heroTl = gsap.timeline({
           scrollTrigger: {
-            trigger: ".hero-container",
+            trigger: heroTrackRef.current,
             start: "top top",
-            end: "+=100%",
-            scrub: true,
-            pin: true,
+            end: "bottom bottom", 
+            scrub: 0.5, 
           },
         });
 
         heroTl
           .to(heroImageWrapperRef.current, {
-            width: "100vw",
-            height: "100vh",
-            y: 0,
+            clipPath: "inset(0% 0% 0% 0% round 0px)",
             ease: "none",
           }, 0)
-          .to(heroImageRef.current, {
+          .fromTo(heroImageRef.current, {
+            scale: 1.4,
+          }, {
             scale: 1, 
             ease: "none",
           }, 0)
           .to(heroTextRef.current, {
             opacity: 0,
+            scale: 0.9,
             y: -50,
-            scale: 0.95,
             ease: "none",
           }, 0);
+      });
 
-        // 2. HALL SECTIONS PARALLAX & ENTRANCE
-        const animateSection = (triggerRef: any, rotation: number) => {
-          // Floating Stamp Animation
-          gsap.fromTo(
-            triggerRef.current.querySelector(".stamp-wrapper"),
-            { y: 100, opacity: 0, rotation: rotation * 2 },
-            {
-              y: 0,
-              opacity: 1,
-              rotation: rotation,
-              duration: 1.5,
-              ease: "back.out(1.2)",
-              scrollTrigger: {
-                trigger: triggerRef.current,
-                start: "top 65%",
-              },
-            }
-          );
+      // 3. HALL SECTIONS PARALLAX & ENTRANCE
+      const animateSection = (triggerRef: any, rotation: number) => {
+        gsap.fromTo(
+          triggerRef.current.querySelector(".stamp-wrapper"),
+          { y: 80, opacity: 0, rotation: rotation * 2 },
+          {
+            y: 0,
+            opacity: 1,
+            rotation: rotation,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: triggerRef.current,
+              start: "top 75%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
 
-          // Text Stagger Animation
-          gsap.fromTo(
-            triggerRef.current.querySelectorAll(".text-animate"),
-            { opacity: 0, y: 30 },
-            {
-              opacity: 1,
-              y: 0,
-              stagger: 0.15,
-              duration: 1,
-              ease: "power3.out",
-              scrollTrigger: {
-                trigger: triggerRef.current,
-                start: "top 75%",
-              },
-            }
-          );
-        };
+        gsap.fromTo(
+          triggerRef.current.querySelectorAll(".text-animate"),
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            stagger: 0.1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: triggerRef.current,
+              start: "top 75%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      };
 
-        animateSection(gardenSectionRef, -3); // Garden Stamp tilts left
-        animateSection(hallSectionRef, 4);    // Hall Stamp tilts right
+      animateSection(gardenSectionRef, -3); 
+      animateSection(hallSectionRef, 4);    
 
-      }, containerRef);
-    }, 100);
+    }, containerRef);
+
+    const timeoutId = setTimeout(() => ScrollTrigger.refresh(), 100);
 
     return () => {
-      clearTimeout(timer);
-      if (ctx) ctx.revert();
+      clearTimeout(timeoutId);
+      ctx.revert(); 
     };
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full bg-[#FDFBF7] text-[#102E4A] overflow-hidden">
+    <div ref={containerRef} className="w-full bg-[#FDFBF7] text-[#102E4A] overflow-clip">
       
       {/* Global CSS */}
       <style jsx global>{`
@@ -128,6 +138,7 @@ export default function HallInfoPage() {
         .stamp-wrapper {
           filter: drop-shadow(0 15px 30px rgba(16, 46, 74, 0.15));
           display: inline-block;
+          will-change: transform, opacity;
         }
         
         .stamp-frame {
@@ -153,33 +164,41 @@ export default function HallInfoPage() {
         }
       `}</style>
 
-      {/* --- 1. IMMERSIVE HERO EXPANSION --- */}
-      <section className="hero-container relative w-full h-screen flex flex-col items-center justify-center overflow-hidden bg-white">
-        <h1 
-          ref={heroTextRef}
-          className="absolute font-display hfg-display text-[12vw] font-light text-[#102E4A] leading-none tracking-tight text-center z-0"
-        >
-          THE SPACES
-        </h1>
-
-        <div 
-          ref={heroImageWrapperRef}
-          className="relative z-10 w-[40vw] h-[50vh] overflow-hidden shadow-2xl flex items-center justify-center border border-[#102E4A]/10"
-          style={{ willChange: "width, height" }}
-        >
-          <Image
-            ref={heroImageRef}
-            src="/images/hero.jpg"
-            alt="Honey Family Garden Spaces"
-            fill
-            className="object-cover scale-125 origin-center"
-            priority
-          />
-          <div className="absolute inset-0 bg-[#102E4A]/10 pointer-events-none" />
+      {/* --- 1. IMMERSIVE HERO EXPANSION (NATIVE STICKY) --- */}
+      {/* 
+        CHANGED: h-[200vh] to h-[135vh] 
+        This dramatically shortens the scroll distance needed to fully open the image.
+      */}
+      <section ref={heroTrackRef} className="relative w-full h-[135vh] bg-[#FDFBF7]">
+        
+        <div className="sticky top-0 w-full h-[100dvh] flex flex-col items-center justify-center overflow-hidden bg-white">
           
-          <div className="absolute bottom-10 flex flex-col items-center pointer-events-none">
-            <span className="font-body hfg-body text-[10px] uppercase tracking-[0.2em] text-white mb-4">Explore</span>
-            <div className="w-px h-16 bg-white" />
+          <h1 
+            ref={heroTextRef}
+            className="absolute inset-0 flex items-center justify-center font-display hfg-display text-[15vw] md:text-[12vw] font-bold text-[#102E4A] leading-none tracking-tight text-center z-0 will-change-transform"
+          >
+            THE SPACES
+          </h1>
+
+          <div 
+            ref={heroImageWrapperRef}
+            className="absolute inset-0 z-10 w-full h-full overflow-hidden pointer-events-none will-change-[clip-path]"
+            style={{ transform: "translateZ(0)" }}
+          >
+            <Image
+              ref={heroImageRef}
+              src="/images/hero.jpg"
+              alt="Honey Family Garden Spaces"
+              fill
+              className="object-cover origin-center will-change-transform"
+              priority
+            />
+            <div className="absolute inset-0 bg-[#102E4A]/20 pointer-events-none" />
+            
+            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none">
+              <span className="font-body hfg-body text-[10px] uppercase tracking-[0.2em] text-white mb-4 drop-shadow-md">Scroll to Explore</span>
+              <div className="w-px h-16 bg-white shadow-lg" />
+            </div>
           </div>
         </div>
       </section>
@@ -192,9 +211,7 @@ export default function HallInfoPage() {
       </div>
 
       {/* --- 2. HALL ONE: BOTANICAL GARDEN --- */}
-      <section ref={gardenSectionRef} className="relative w-full py-24 md:py-32 bg-[#FDFBF7] overflow-hidden">
-        
-        {/* FULL WIDTH BACKGROUND IMAGE */}
+      <section ref={gardenSectionRef} className="relative w-full py-24 md:py-32 bg-[#FDFBF7] overflow-hidden hw-accelerate">
         <div className="absolute inset-0 w-full h-full opacity-[0.25] pointer-events-none z-0">
           <Image 
             src="/images/about-bg.png" 
@@ -205,8 +222,6 @@ export default function HallInfoPage() {
         </div>
 
         <div className="max-w-7xl mx-auto px-5 md:px-10 flex flex-col lg:flex-row items-center gap-10 lg:gap-20 relative z-10">
-          
-          {/* Stamp Photo (Left Side) */}
           <div className="w-full lg:w-1/2 flex justify-center lg:justify-start">
             <div className="stamp-wrapper w-[300px] md:w-[450px]">
               <div className="stamp-frame">
@@ -222,23 +237,22 @@ export default function HallInfoPage() {
             </div>
           </div>
 
-          {/* Text Content (Right Side) */}
           <div className="w-full lg:w-1/2 flex flex-col justify-center">
-            <div className="text-animate flex items-center gap-2 mb-4">
+            <div className="text-animate flex items-center gap-2 mb-4 will-change-transform">
               <Leaf className="w-5 h-5 text-[#D4AF37]" />
               <span className="font-body text-[#102E4A] text-xs font-bold tracking-widest uppercase">Outdoor Spaces</span>
             </div>
             
-            <h2 className="text-animate font-display hfg-display text-5xl md:text-7xl text-[#102E4A] leading-[1.1] mb-6 drop-shadow-sm">
+            <h2 className="text-animate font-display hfg-display text-5xl md:text-7xl text-[#102E4A] leading-[1.1] mb-6 drop-shadow-sm will-change-transform">
               Botanical <br/> 
               <span className="hfg-script text-[#D4AF37] text-6xl md:text-8xl -ml-2">Garden</span>
             </h2>
 
-            <p className="text-animate font-body hfg-body text-[#102E4A]/90 text-base md:text-lg max-w-md leading-relaxed mb-8 font-medium">
+            <p className="text-animate font-body hfg-body text-[#102E4A]/90 text-base md:text-lg max-w-md leading-relaxed mb-8 font-medium will-change-transform">
               Celebrate under the stars in our lush botanical sanctuary. Dressed with elegant overhead canopy lighting, this open-air venue offers the perfect magical backdrop for grand gatherings.
             </p>
 
-            <div className="text-animate flex flex-wrap gap-8 mb-10 border-l-2 border-[#D4AF37] pl-6 bg-white/40 p-4 rounded-r-lg backdrop-blur-sm">
+            <div className="text-animate flex flex-wrap gap-8 mb-10 border-l-2 border-[#D4AF37] pl-6 bg-white/40 p-4 rounded-r-lg backdrop-blur-sm will-change-transform">
               <div>
                 <span className="block font-body text-[10px] uppercase tracking-widest text-[#102E4A]/70 mb-1 font-bold">Capacity</span>
                 <span className="font-display hfg-display text-2xl text-[#102E4A]">150-250</span>
@@ -249,22 +263,17 @@ export default function HallInfoPage() {
               </div>
             </div>
 
-            <div className="text-animate">
+            <div className="text-animate will-change-transform">
               <Link href="/contact" className="inline-flex items-center justify-center bg-[#D4AF37] text-[#102E4A] font-bold text-xs uppercase tracking-widest px-8 py-4 hover:bg-[#102E4A] hover:text-[#FDFBF7] transition-colors duration-300 shadow-lg">
                 Book This Space
               </Link>
             </div>
           </div>
-
         </div>
       </section>
 
-
-
       {/* --- 3. HALL TWO: PRIVATE AC HALL --- */}
-      <section ref={hallSectionRef} className="relative w-full py-24 md:py-32 bg-[#FDFBF7] overflow-hidden">
-        
-        {/* FULL WIDTH BACKGROUND IMAGE */}
+      <section ref={hallSectionRef} className="relative w-full py-24 md:py-32 bg-[#FDFBF7] overflow-hidden hw-accelerate">
         <div className="absolute inset-0 w-full h-full opacity-[0.25] pointer-events-none z-0">
           <Image 
             src="/images/about-bg2.png" 
@@ -275,24 +284,22 @@ export default function HallInfoPage() {
         </div>
 
         <div className="max-w-7xl mx-auto px-5 md:px-10 flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-20 relative z-10">
-          
-          {/* Text Content (Left Side) */}
           <div className="w-full lg:w-1/2 flex flex-col justify-center">
-            <div className="text-animate flex items-center gap-2 mb-4">
+            <div className="text-animate flex items-center gap-2 mb-4 will-change-transform">
               <Snowflake className="w-5 h-5 text-[#D4AF37]" />
               <span className="font-body text-[#102E4A] text-xs font-bold tracking-widest uppercase">Climate Controlled</span>
             </div>
             
-            <h2 className="text-animate font-display hfg-display text-5xl md:text-7xl text-[#102E4A] leading-[1.1] mb-6 drop-shadow-sm">
+            <h2 className="text-animate font-display hfg-display text-5xl md:text-7xl text-[#102E4A] leading-[1.1] mb-6 drop-shadow-sm will-change-transform">
               Private <br/> 
               <span className="hfg-script text-[#D4AF37] text-6xl md:text-8xl -ml-2">AC Hall</span>
             </h2>
 
-            <p className="text-animate font-body hfg-body text-[#102E4A]/90 text-base md:text-lg max-w-md leading-relaxed mb-8 font-medium">
+            <p className="text-animate font-body hfg-body text-[#102E4A]/90 text-base md:text-lg max-w-md leading-relaxed mb-8 font-medium will-change-transform">
               Sophisticated and intimate. Engineered for absolute comfort with integrated acoustics, bespoke lighting, and premium banquet arrangements for your most important indoor gatherings.
             </p>
 
-            <div className="text-animate flex flex-wrap gap-8 mb-10 border-l-2 border-[#D4AF37] pl-6 bg-white/40 p-4 rounded-r-lg backdrop-blur-sm">
+            <div className="text-animate flex flex-wrap gap-8 mb-10 border-l-2 border-[#D4AF37] pl-6 bg-white/40 p-4 rounded-r-lg backdrop-blur-sm will-change-transform">
               <div>
                 <span className="block font-body text-[10px] uppercase tracking-widest text-[#102E4A]/70 mb-1 font-bold">Capacity</span>
                 <span className="font-display hfg-display text-2xl text-[#102E4A]">30-60</span>
@@ -303,14 +310,13 @@ export default function HallInfoPage() {
               </div>
             </div>
 
-            <div className="text-animate">
+            <div className="text-animate will-change-transform">
               <Link href="/contact" className="inline-flex items-center justify-center bg-[#D4AF37] text-[#102E4A] font-bold text-xs uppercase tracking-widest px-8 py-4 hover:bg-[#102E4A] hover:text-[#FDFBF7] transition-colors duration-300 shadow-lg">
                 Book This Space
               </Link>
             </div>
           </div>
 
-          {/* Stamp Photo (Right Side) */}
           <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
             <div className="stamp-wrapper w-[300px] md:w-[450px]">
               <div className="stamp-frame">
@@ -325,7 +331,6 @@ export default function HallInfoPage() {
               </div>
             </div>
           </div>
-
         </div>
       </section>
 

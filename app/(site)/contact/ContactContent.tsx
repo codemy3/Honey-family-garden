@@ -47,10 +47,10 @@ export default function ContactContent() {
           transition={{ duration: 0.6 }}
           className="relative z-10 text-center px-5"
         >
-          <h1 className="font-display font-bold text-4xl md:text-5xl text-cream mb-3 text-shadow">
+          <h1 className="font-display hfg-display font-bold text-5xl md:text-6xl !text-[#FDFBF7] mb-4 text-shadow drop-shadow-xl">
             Get in Touch
           </h1>
-          <p className="text-cream/80 text-lg">
+          <p className="font-body hfg-body text-white/90 text-lg md:text-xl font-medium tracking-wide drop-shadow-md">
             Plan your perfect event with us
           </p>
         </motion.div>

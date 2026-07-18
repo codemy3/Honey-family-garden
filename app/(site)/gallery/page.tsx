@@ -348,58 +348,61 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* --- INLINE TYPOGRAPHIC FILTER MENU --- */}
-      <section className="sticky top-0 z-40 bg-inherit border-b border-current/10 py-4 transition-colors duration-1000 backdrop-blur-md bg-opacity-90">
-        <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-          <div className="flex gap-8 md:gap-12 overflow-x-auto no-scrollbar snap-x">
-            {categories.map((cat) => (
-              <button
-                key={cat.key}
-                onClick={() => setActiveCategory(cat.key)}
-                className="relative group text-left whitespace-nowrap py-4 snap-start"
-              >
-                <span className={`font-display hfg-display text-xl md:text-3xl transition-colors duration-500 ${
-                  activeCategory === cat.key ? "text-[#D4AF37] italic" : "text-current/40 hover:text-current/80"
-                }`}>
-                  {cat.label}
-                </span>
-                
-                {activeCategory === cat.key && (
-                  <motion.div
-                    layoutId="activeInlineFilter"
-                    className="absolute bottom-0 left-0 w-full h-[2px] bg-[#D4AF37]"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
-              </button>
-            ))}
+      {/* Wrap filter and grid so the sticky behavior naturally ends before the footer */}
+      <div className="relative">
+        {/* --- INLINE TYPOGRAPHIC FILTER MENU --- */}
+        <section className="sticky top-16 md:top-24 z-30 bg-inherit border-b border-current/10 py-4 transition-colors duration-1000 backdrop-blur-md bg-opacity-90">
+          <div className="max-w-[1400px] mx-auto px-5 md:px-10">
+            <div className="flex gap-8 md:gap-12 overflow-x-auto no-scrollbar snap-x">
+              {categories.map((cat) => (
+                <button
+                  key={cat.key}
+                  onClick={() => setActiveCategory(cat.key)}
+                  className="relative group text-left whitespace-nowrap py-4 snap-start"
+                >
+                  <span className={`font-display hfg-display text-xl md:text-3xl transition-colors duration-500 ${
+                    activeCategory === cat.key ? "text-[#D4AF37] italic" : "text-current/40 hover:text-current/80"
+                  }`}>
+                    {cat.label}
+                  </span>
+                  
+                  {activeCategory === cat.key && (
+                    <motion.div
+                      layoutId="activeInlineFilter"
+                      className="absolute bottom-0 left-0 w-full h-[2px] bg-[#D4AF37]"
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* --- THE DARKROOM STAGGERED MASONRY GRID --- */}
-      <section ref={galleryRef} className="py-20 md:py-40 relative z-10 min-h-screen">
-        <div className="max-w-[1400px] mx-auto px-5 md:px-10">
-          
-          {filteredImages.length === 0 ? (
-            <div className="w-full py-32 text-center border border-current/10">
-              <span className="font-body text-xs uppercase tracking-widest text-current/40 font-bold">Archive empty</span>
-            </div>
-          ) : (
-            <div className="flex flex-col md:flex-row gap-10 md:gap-12 lg:gap-16">
-              {/* Column 1 - Normal */}
-              <RenderColumn images={col1} className="masonry-col-1" mtClass="mt-0" />
-              
-              {/* Column 2 - Pushed down massively on desktop */}
-              <RenderColumn images={col2} className="masonry-col-2" mtClass="mt-0 md:mt-48" />
-              
-              {/* Column 3 - Pushed down slightly on desktop */}
-              <RenderColumn images={col3} className="masonry-col-3" mtClass="mt-0 md:mt-24" />
-            </div>
-          )}
+        {/* --- THE DARKROOM STAGGERED MASONRY GRID --- */}
+        <section ref={galleryRef} className="py-20 md:py-40 relative z-10 min-h-screen">
+          <div className="max-w-[1400px] mx-auto px-5 md:px-10">
+            
+            {filteredImages.length === 0 ? (
+              <div className="w-full py-32 text-center border border-current/10">
+                <span className="font-body text-xs uppercase tracking-widest text-current/40 font-bold">Archive empty</span>
+              </div>
+            ) : (
+              <div className="flex flex-col md:flex-row gap-10 md:gap-12 lg:gap-16">
+                {/* Column 1 - Normal */}
+                <RenderColumn images={col1} className="masonry-col-1" mtClass="mt-0" />
+                
+                {/* Column 2 - Pushed down massively on desktop */}
+                <RenderColumn images={col2} className="masonry-col-2" mtClass="mt-0 md:mt-48" />
+                
+                {/* Column 3 - Pushed down slightly on desktop */}
+                <RenderColumn images={col3} className="masonry-col-3" mtClass="mt-0 md:mt-24" />
+              </div>
+            )}
 
-        </div>
-      </section>
+          </div>
+        </section>
+      </div>
 
       <Lightbox
         images={filteredImages}

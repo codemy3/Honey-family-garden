@@ -156,18 +156,14 @@ export default function MarqueeSection() {
         <span className="font-body text-xs font-semibold uppercase tracking-[0.3em] text-[#D4AF37] mb-3 block">
           Experience Culinary Artistry
         </span>
-        <div className="relative inline-block px-6 py-2">
-          <div ref={sparksRef} className="absolute -top-4 -left-2 md:-top-6 md:-left-6 pointer-events-none transform -translate-x-1/2">
-            <GoldenSparks className="w-8 h-8 md:w-11 md:h-11 drop-shadow-sm" />
+        <div className="relative inline-block px-4 py-2 md:px-6">
+          <div ref={sparksRef} className="absolute -top-1 left-2 md:-top-6 md:-left-6 pointer-events-none transform -translate-x-1/2">
+            <GoldenSparks className="w-6 h-6 md:w-11 md:h-11 drop-shadow-sm" />
           </div>
           <h2 className="font-display font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#1E3A2F] tracking-tight flex flex-col sm:flex-row items-center justify-center gap-y-2 sm:gap-x-3 leading-tight">
             <span>A Feast for the</span>
             <span className="relative inline-flex items-center text-[#FBA819] font-serif italic font-normal pr-1">
-              Sense
-              <span className="relative inline-block -top-1 md:-top-3 -mx-0.5">
-                <GoldenSwirl className="w-3.5 h-5 md:w-4 md:h-7 inline" />
-              </span>
-              s!
+              Sense&apos;s!
             </span>
           </h2>
         </div>

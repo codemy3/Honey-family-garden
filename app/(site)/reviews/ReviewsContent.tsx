@@ -97,7 +97,19 @@ export default function ReviewsPage() {
               ) : reviews.length === 0 ? (
                 <div className="text-center py-12 text-[#102E4A]/50 font-body">No reviews available yet.</div>
               ) : (
-                reviews.map((review) => (
+                reviews.map((review, index) => {
+                  const dynamicImages = [
+                    "/images/scene2.webp", 
+                    "/images/scene4.webp", 
+                    "/images/scene5.webp", 
+                    "/images/scene7.webp", 
+                    "/images/scene8.webp", 
+                    "/images/outdoor.jpeg", 
+                    "/images/indoor2.png"
+                  ];
+                  const img = dynamicImages[index % dynamicImages.length];
+
+                  return (
                   <div key={review.id} className="review-stamp">
                     <div className="stamp-wrapper transition-transform duration-500 hover:-translate-y-1">
                       <div className="stamp-frame">
@@ -105,7 +117,7 @@ export default function ReviewsPage() {
                           
                           <div className="relative w-full sm:w-32 md:w-40 h-48 sm:h-48 flex-shrink-0 overflow-hidden bg-[#102E4A]/5">
                             <Image 
-                              src={review.eventType === "wedding" ? "/images/scene2.webp" : "/images/hero.jpg"} 
+                              src={img} 
                               alt={review.name} 
                               fill 
                               sizes="(max-width: 640px) 100vw, 160px"
@@ -139,8 +151,9 @@ export default function ReviewsPage() {
                       </div>
                     </div>
                   </div>
-                </div>
-                ))
+                  </div>
+                  );
+                })
               )}
             </div>
 

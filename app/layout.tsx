@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
-import SmoothScrollProvider from "@/components/SmoothScrollProvider";
-import FloatingReview from "@/components/FloatingReview";
 
 export const metadata: Metadata = {
   title: {
@@ -66,12 +62,7 @@ export default function RootLayout({
             },
           }}
         />
-        <Navbar />
-        <SmoothScrollProvider>
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </SmoothScrollProvider>
-        <FloatingReview />
+        {children}
       </body>
     </html>
   );

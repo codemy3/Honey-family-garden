@@ -28,28 +28,29 @@ const icons: Record<string, string> = {
 
 export const galleryImages: GalleryImage[] = [
   // Halls
-  { id: "h1", src: "/images/scene1.webp", category: "halls", title: "Garden Hall Entrance", uploadedAt: "2025-06-15" },
-  { id: "h2", src: "/images/scene2.webp", category: "halls", title: "AC Hall Interior", uploadedAt: "2025-06-12" },
-  { id: "h3", src: "/images/scene3.webp", category: "halls", title: "Outdoor Seating Area", uploadedAt: "2025-05-28" },
-  { id: "h4", src: "/images/scene4.webp", category: "halls", title: "Stage Setup", uploadedAt: "2025-05-20" },
+  { id: "h1", src: "/images/indoor.png", category: "halls", title: "Indoor Banquet Hall", uploadedAt: "2025-06-15" },
+  { id: "h2", src: "/images/indoor2.png", category: "halls", title: "AC Hall Interior", uploadedAt: "2025-06-12" },
+  { id: "h3", src: "/images/outdoor.jpeg", category: "halls", title: "Outdoor Seating Area", uploadedAt: "2025-05-28" },
+  { id: "h4", src: "/images/scene1.webp", category: "halls", title: "Garden Hall Entrance", uploadedAt: "2025-05-20" },
+  
   // Events
-  { id: "e1", src: "/images/scene5.webp", category: "events", title: "Wedding Ceremony", uploadedAt: "2025-06-08" },
-  { id: "e2", src: "/images/scene6.webp", category: "events", title: "Corporate Conference", uploadedAt: "2025-06-01" },
-  { id: "e3", src: "/images/scene7.webp", category: "events", title: "Family Celebration", uploadedAt: "2025-05-25" },
-  { id: "e4", src: "/images/scene8.webp", category: "events", title: "Birthday Party Setup", uploadedAt: "2025-05-18" },
+  { id: "e1", src: "/images/scene2.webp", category: "events", title: "Wedding Ceremony", uploadedAt: "2025-06-08" },
+  { id: "e3", src: "/images/scene4.webp", category: "events", title: "Family Celebration", uploadedAt: "2025-05-25" },
+  
   // Food
   { id: "f1", src: "/images/food.webp", category: "food", title: "Multi-Cuisine Buffet", uploadedAt: "2025-06-10" },
-  { id: "f2", src: "/images/food2.webp", category: "food", title: "Dessert Station", uploadedAt: "2025-06-05" },
+  { id: "f2", src: "/images/food2.webp", category: "food", title: "Savory Starters", uploadedAt: "2025-06-05" },
   { id: "f3", src: "/images/food3.webp", category: "food", title: "Signature Dishes", uploadedAt: "2025-05-30" },
+  { id: "f4", src: "/images/food4.webp", category: "food", title: "Appetizer Platter", uploadedAt: "2025-05-20" },
+  { id: "f5", src: "/images/food5.webp", category: "food", title: "Live Food Counter", uploadedAt: "2025-05-15" },
+  
   // Botanical
-  { id: "b1", src: "/images/scene1.webp", category: "botanical", title: "Garden Pathway", uploadedAt: "2025-06-14" },
-  { id: "b2", src: "/images/scene3.webp", category: "botanical", title: "Flowering Corner", uploadedAt: "2025-06-07" },
-  { id: "b3", src: "/images/scene5.webp", category: "botanical", title: "Evening Garden View", uploadedAt: "2025-05-22" },
+  { id: "b1", src: "/images/scene5.webp", category: "botanical", title: "Garden Pathway", uploadedAt: "2025-06-14" },
+  { id: "b2", src: "/images/scene6.webp", category: "botanical", title: "Flowering Corner", uploadedAt: "2025-06-07" },
+  
   // Setup
-  { id: "s1", src: "/images/scene4.webp", category: "setup", title: "Table Arrangement", uploadedAt: "2025-06-11" },
-  { id: "s2", src: "/images/scene6.webp", category: "setup", title: "Lighting Décor", uploadedAt: "2025-06-03" },
-  { id: "s3", src: "/images/scene7.webp", category: "setup", title: "Floral Decoration", uploadedAt: "2025-05-27" },
-  { id: "s4", src: "/images/scene8.webp", category: "setup", title: "Reception Setup", uploadedAt: "2025-05-15" },
+  { id: "s1", src: "/images/scene7.webp", category: "setup", title: "Table Arrangement", uploadedAt: "2025-06-11" },
+  { id: "s2", src: "/images/scene8.webp", category: "setup", title: "Lighting Décor", uploadedAt: "2025-06-03" },
 ];
 
 export function getGradient(index: number): string {
