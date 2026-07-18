@@ -85,10 +85,10 @@ export default function ContactContent() {
                       Phone
                     </p>
                     <a
-                      href="tel:+918XXXXXXXXX"
+                      href="tel:+917204724250"
                       className="text-cream text-sm hover:text-gold transition-colors"
                     >
-                      +91 8XXX-XXXXXX
+                      +91 72047 24250
                     </a>
                   </div>
                 </div>
@@ -137,10 +137,10 @@ export default function ContactContent() {
                       Email
                     </p>
                     <a
-                      href="mailto:contact@honeygarden.com"
+                      href="mailto:honeyfamilygardenrestaurant@gmail.com"
                       className="text-cream text-sm hover:text-gold transition-colors"
                     >
-                      contact@honeygarden.com
+                      honeyfamilygardenrestaurant@gmail.com
                     </a>
                   </div>
                 </div>

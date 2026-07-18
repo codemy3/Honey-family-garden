@@ -139,10 +139,10 @@ export default function Footer() {
               <div>
                 <p className="text-white/60 text-[10px] uppercase tracking-[0.15em] font-bold mb-1">Direct Line</p>
                 <a
-                  href="tel:+918000000000"
+                  href="tel:+917204724250"
                   className="text-[#D4AF37] hover:text-white transition-colors inline-flex items-center gap-1.5 group font-semibold text-lg"
                 >
-                  <span>+91 80000 00000</span>
+                  <span>+91 72047 24250</span>
                   <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </a>
               </div>
