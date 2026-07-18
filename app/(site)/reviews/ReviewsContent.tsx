@@ -97,19 +97,9 @@ export default function ReviewsPage() {
               ) : reviews.length === 0 ? (
                 <div className="text-center py-12 text-[#102E4A]/50 font-body">No reviews available yet.</div>
               ) : (
-                reviews.map((review, index) => {
-                  const dynamicImages = [
-                    "/images/scene2.webp", 
-                    "/images/scene4.webp", 
-                    "/images/scene5.webp", 
-                    "/images/scene7.webp", 
-                    "/images/scene8.webp", 
-                    "/images/outdoor.jpeg", 
-                    "/images/indoor2.png"
-                  ];
-                  
-                  // Use the first uploaded image, fallback to dynamic array
-                  const img = review.images && review.images.length > 0 ? review.images[0] : dynamicImages[index % dynamicImages.length];
+                reviews.map((review) => {
+                  const hasImage = review.images && review.images.length > 0;
+                  const img = hasImage ? review.images[0] : null;
 
                   return (
                   <div key={review.id} className="review-stamp">
@@ -117,15 +107,17 @@ export default function ReviewsPage() {
                       <div className="stamp-frame">
                         <div className="stamp-content flex flex-col sm:flex-row gap-5 md:gap-6 items-start sm:items-center p-3 md:p-4">
                           
-                          <div className="relative w-full sm:w-32 md:w-40 h-48 sm:h-48 flex-shrink-0 overflow-hidden bg-[#102E4A]/5">
-                            <Image 
-                              src={img} 
-                              alt={review.name} 
-                              fill 
-                              sizes="(max-width: 640px) 100vw, 160px"
-                              className="object-cover"
-                            />
-                          </div>
+                          {hasImage && (
+                            <div className="relative w-full sm:w-32 md:w-40 h-48 sm:h-48 flex-shrink-0 overflow-hidden bg-[#102E4A]/5">
+                              <Image 
+                                src={img!} 
+                                alt={review.name} 
+                                fill 
+                                sizes="(max-width: 640px) 100vw, 160px"
+                                className="object-cover"
+                              />
+                            </div>
+                          )}
 
                         <div className="flex-grow flex flex-col justify-between py-1 w-full">
                           <div>
