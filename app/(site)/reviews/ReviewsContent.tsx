@@ -99,7 +99,7 @@ export default function ReviewsPage() {
               ) : (
                 reviews.map((review) => {
                   const hasImage = review.images && review.images.length > 0;
-                  const img = hasImage ? review.images[0] : null;
+                  const img = hasImage ? review.images![0] : null;
 
                   return (
                   <div key={review.id} className="review-stamp">
