@@ -53,7 +53,7 @@ export default function HallInfoPage() {
             trigger: heroTrackRef.current,
             start: "top top",
             end: "bottom bottom", 
-            scrub: 0.5, 
+            scrub: true, 
           },
         });
 
@@ -165,11 +165,7 @@ export default function HallInfoPage() {
       `}</style>
 
       {/* --- 1. IMMERSIVE HERO EXPANSION (NATIVE STICKY) --- */}
-      {/* 
-        CHANGED: h-[200vh] to h-[120vh] 
-        This dramatically shortens the scroll distance needed to fully open the image.
-      */}
-      <section ref={heroTrackRef} className="relative w-full h-[120vh] bg-[#FDFBF7]">
+      <section ref={heroTrackRef} className="relative w-full h-[250vh] bg-[#FDFBF7]">
         
         <div className="sticky top-0 w-full h-[100dvh] flex flex-col items-center justify-center overflow-hidden bg-white">
           
