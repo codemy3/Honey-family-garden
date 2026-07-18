@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Enquiry } from "@/lib/validation";
+import { sendEnquiryNotification } from "@/lib/email";
 
 // In-memory store (replace with Firebase/Supabase in production)
 const enquiries: Enquiry[] = [];
@@ -32,8 +33,8 @@ export async function POST(request: NextRequest) {
 
     enquiries.push(newEnquiry);
 
-    // TODO: Send email notification to admin
-    // await sendAdminNotification(newEnquiry);
+    // Send email notification to admin
+    await sendEnquiryNotification(newEnquiry);
 
     return NextResponse.json(
       { message: "Enquiry submitted successfully", enquiry: newEnquiry },

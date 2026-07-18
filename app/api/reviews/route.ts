@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { client } from "@/lib/sanity/client";
+import { sendReviewNotification } from "@/lib/email";
 
 export const dynamic = "force-dynamic";
 
@@ -89,6 +90,17 @@ export async function POST(request: NextRequest) {
       comment,
       images: imageReferences.length > 0 ? imageReferences : undefined,
       createdAt: new Date().toISOString(),
+    });
+
+    // Send email notification to admin
+    await sendReviewNotification({
+      name,
+      email,
+      phone,
+      rating,
+      eventType,
+      comment,
+      hasImages: imageReferences.length > 0
     });
 
     return NextResponse.json(
