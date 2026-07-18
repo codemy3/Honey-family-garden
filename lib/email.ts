@@ -83,7 +83,7 @@ export async function sendReviewNotification(review: { name: string; email?: str
         </div>
         
         <div style="margin-top: 25px; text-align: center;">
-          <a href="https://honeyfamilygarden.vercel.app/studio" style="background-color: #D4AF37; color: #102E4A; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 4px; display: inline-block;">Open Sanity Studio</a>
+          <a href="https://honey-family-garden.vercel.app/studio" style="background-color: #D4AF37; color: #102E4A; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 4px; display: inline-block;">Open Sanity Studio</a>
         </div>
       </div>
     `,
