@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { gsap } from "gsap";
 import { Star, X } from "lucide-react";
 
@@ -10,6 +11,8 @@ export default function FloatingReview() {
   const starsRef = useRef<(HTMLDivElement | null)[]>([]);
   const [hoveredStar, setHoveredStar] = useState<number>(0);
   const [isDismissed, setIsDismissed] = useState<boolean>(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   const ratingText = ["Rate Us", "Uh oh...", "Fair", "Good", "Excellent!", "Perfect!"];
 
@@ -76,7 +79,12 @@ export default function FloatingReview() {
     });
   };
 
-  if (isDismissed) return null;
+  const handleStarClick = (star: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    router.push(`/reviews?rating=${star}`);
+  };
+
+  if (isDismissed || pathname === "/reviews") return null;
 
   return (
     <div
@@ -113,6 +121,7 @@ export default function FloatingReview() {
               key={star}
               ref={(el) => { starsRef.current[index] = el; }}
               onMouseEnter={() => setHoveredStar(star)}
+              onClick={(e) => handleStarClick(star, e)}
               className="relative cursor-pointer transition-transform hover:scale-125 duration-200"
             >
               <Star className="w-6 h-6 text-[#FDFBF7]/15 transition-colors duration-200" />

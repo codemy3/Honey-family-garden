@@ -28,6 +28,13 @@ export default function ClientReviewsWrapper({ children }: { children: React.Rea
 
   useEffect(() => {
     setMounted(true);
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const r = params.get("rating");
+      if (r && !isNaN(Number(r))) {
+        setRating(Number(r));
+      }
+    }
   }, []);
 
   useEffect(() => {
