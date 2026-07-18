@@ -116,19 +116,19 @@ export default function CTASection() {
         </p>
 
         {/* CTAs */}
-        <div className="flex flex-row items-center justify-center gap-3 sm:gap-6 w-full px-2 sm:px-0">
-          <MagneticButton className="flex-1 sm:flex-none flex justify-center w-full">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 w-full px-2 sm:px-0">
+          <MagneticButton className="w-full sm:w-auto">
             <Link
               href="/contact"
-              className="w-full px-2 sm:px-10 py-3.5 sm:py-4 bg-[#D4AF37] hover:bg-[#FDFBF7] text-[#102E4A] font-bold text-[9px] sm:text-xs tracking-[0.05em] sm:tracking-[0.15em] uppercase rounded-full transition-all duration-300 shadow-[0_10px_30px_rgba(212,175,55,0.2)] sm:min-w-[220px] text-center flex items-center justify-center whitespace-nowrap"
+              className="w-full sm:w-auto px-6 sm:px-10 py-3.5 sm:py-4 bg-[#D4AF37] hover:bg-[#FDFBF7] text-[#102E4A] font-bold text-[10px] sm:text-xs tracking-[0.1em] sm:tracking-[0.15em] uppercase rounded-full transition-all duration-300 shadow-[0_10px_30px_rgba(212,175,55,0.2)] sm:min-w-[220px] text-center flex items-center justify-center whitespace-nowrap"
             >
               Get in Touch
             </Link>
           </MagneticButton>
-          <MagneticButton className="flex-1 sm:flex-none flex justify-center w-full">
+          <MagneticButton className="w-full sm:w-auto">
             <Link
               href="/hall-info"
-              className="w-full px-2 sm:px-10 py-3.5 sm:py-4 border-2 border-[#FDFBF7]/30 text-[#FDFBF7] font-bold text-[9px] sm:text-xs tracking-[0.05em] sm:tracking-[0.15em] uppercase rounded-full hover:border-[#D4AF37] hover:text-[#D4AF37] hover:bg-white/5 transition-all duration-300 sm:min-w-[220px] text-center backdrop-blur-sm flex items-center justify-center whitespace-nowrap"
+              className="w-full sm:w-auto px-6 sm:px-10 py-3.5 sm:py-4 border-2 border-[#FDFBF7]/30 text-[#FDFBF7] font-bold text-[10px] sm:text-xs tracking-[0.1em] sm:tracking-[0.15em] uppercase rounded-full hover:border-[#D4AF37] hover:text-[#D4AF37] hover:bg-white/5 transition-all duration-300 sm:min-w-[220px] text-center backdrop-blur-sm flex items-center justify-center whitespace-nowrap"
             >
               Explore Venue
             </Link>

@@ -166,10 +166,10 @@ export default function HallInfoPage() {
 
       {/* --- 1. IMMERSIVE HERO EXPANSION (NATIVE STICKY) --- */}
       {/* 
-        CHANGED: h-[200vh] to h-[135vh] 
+        CHANGED: h-[200vh] to h-[120vh] 
         This dramatically shortens the scroll distance needed to fully open the image.
       */}
-      <section ref={heroTrackRef} className="relative w-full h-[135vh] bg-[#FDFBF7]">
+      <section ref={heroTrackRef} className="relative w-full h-[120vh] bg-[#FDFBF7]">
         
         <div className="sticky top-0 w-full h-[100dvh] flex flex-col items-center justify-center overflow-hidden bg-white">
           
@@ -211,7 +211,7 @@ export default function HallInfoPage() {
       </div>
 
       {/* --- 2. HALL ONE: BOTANICAL GARDEN --- */}
-      <section ref={gardenSectionRef} className="relative w-full py-24 md:py-32 bg-[#FDFBF7] overflow-hidden hw-accelerate">
+      <section ref={gardenSectionRef} className="relative w-full pt-12 pb-24 md:pt-16 md:pb-32 bg-[#FDFBF7] overflow-hidden hw-accelerate">
         <div className="absolute inset-0 w-full h-full opacity-[0.25] pointer-events-none z-0">
           <Image 
             src="/images/about-bg.png" 
