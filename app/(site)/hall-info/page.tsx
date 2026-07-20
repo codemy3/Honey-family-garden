@@ -183,7 +183,7 @@ export default function HallInfoPage() {
           >
             <Image
               ref={heroImageRef}
-              src="/images/hero.jpg"
+              src="/images/hero.webp"
               alt="Honey Family Garden Spaces"
               fill
               className="object-cover origin-center will-change-transform"
@@ -210,7 +210,7 @@ export default function HallInfoPage() {
       <section ref={gardenSectionRef} className="relative w-full pt-12 pb-24 md:pt-16 md:pb-32 bg-[#FDFBF7] overflow-hidden hw-accelerate">
         <div className="absolute inset-0 w-full h-full opacity-[0.25] pointer-events-none z-0">
           <Image 
-            src="/images/about-bg.png" 
+            src="/images/about-bg.webp" 
             alt="Botanical Sketch" 
             fill 
             className="object-cover object-center mix-blend-multiply" 
@@ -223,7 +223,7 @@ export default function HallInfoPage() {
               <div className="stamp-frame">
                 <div className="stamp-content">
                   <div className="relative w-full aspect-[4/5] overflow-hidden">
-                    <Image src="/images/outdoor.jpeg" alt="Botanical Garden Venue" fill className="object-cover" />
+                    <Image src="/images/outdoor.webp" alt="Botanical Garden Venue" fill className="object-cover" />
                   </div>
                   <div className="pt-4 pb-2 text-center">
                     <span className="font-display hfg-display text-[#102E4A] text-xl opacity-80">The Garden</span>
@@ -272,7 +272,7 @@ export default function HallInfoPage() {
       <section ref={hallSectionRef} className="relative w-full py-24 md:py-32 bg-[#FDFBF7] overflow-hidden hw-accelerate">
         <div className="absolute inset-0 w-full h-full opacity-[0.25] pointer-events-none z-0">
           <Image 
-            src="/images/about-bg2.png" 
+            src="/images/about-bg2.webp" 
             alt="AC Hall Sketch" 
             fill 
             className="object-cover object-center mix-blend-multiply" 
@@ -318,7 +318,7 @@ export default function HallInfoPage() {
               <div className="stamp-frame">
                 <div className="stamp-content">
                   <div className="relative w-full aspect-[4/5] overflow-hidden">
-                    <Image src="/images/indoor.png" alt="Private AC Hall Venue" fill className="object-cover grayscale-[10%]" />
+                    <Image src="/images/indoor.webp" alt="Private AC Hall Venue" fill className="object-cover grayscale-[10%]" />
                   </div>
                   <div className="pt-4 pb-2 text-center">
                     <span className="font-display hfg-display text-[#102E4A] text-xl opacity-80">Indoor Hall</span>

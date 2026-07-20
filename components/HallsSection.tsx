@@ -178,7 +178,7 @@ export default function HallsSection() {
 
       {/* Background Overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        <Image src="/images/hero.jpg" alt="Venue Background" fill className="object-cover opacity-60" priority />
+        <Image src="/images/hero.webp" alt="Venue Background" fill className="object-cover opacity-60" priority />
         <div className="absolute inset-0 bg-[#102E4A]/80 mix-blend-multiply" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_70%_at_50%_50%,_rgba(212,175,55,0.25),_transparent_100%)]" />
       </div>
@@ -194,7 +194,7 @@ export default function HallsSection() {
 
         {/* Natural stacking on mobile using relative flow / Absolute positioned on desktop */}
         <div ref={img1} className="relative md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full max-w-[92vw] sm:max-w-[85vw] md:max-w-none md:w-[55vw] h-[40vh] sm:h-[45vh] md:h-[70vh] rounded-2xl overflow-hidden shadow-2xl will-change-transform z-[10] mb-6 md:mb-0">
-          <Image src="/images/outdoor.jpeg" alt="Botanical Garden" fill className="object-cover" />
+          <Image src="/images/outdoor.webp" alt="Botanical Garden" fill className="object-cover" />
           <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.3)] pointer-events-none" />
         </div>
 
@@ -232,7 +232,7 @@ export default function HallsSection() {
         </h2>
 
         <div ref={img2} className="relative md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full max-w-[92vw] sm:max-w-[85vw] md:max-w-none md:w-[55vw] h-[40vh] sm:h-[45vh] md:h-[70vh] rounded-2xl overflow-hidden shadow-2xl will-change-transform z-[10] mb-6 md:mb-0">
-          <Image src="/images/indoor.png" alt="Private AC Hall" fill className="object-cover" />
+          <Image src="/images/indoor.webp" alt="Private AC Hall" fill className="object-cover" />
           <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.3)] pointer-events-none" />
         </div>
 

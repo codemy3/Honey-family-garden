@@ -89,7 +89,7 @@ export default function Navbar() {
                   className="w-10 h-10 lg:w-14 lg:h-14 overflow-hidden flex items-center justify-center relative"
                 >
                   <Image
-                    src="/images/logo.png"
+                    src="/images/logo.webp"
                     alt="Honey Family Garden Logo"
                     fill
                     sizes="(max-width: 1024px) 40px, 56px"

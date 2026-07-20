@@ -51,7 +51,7 @@ export default function Footer() {
               <div className="flex items-center gap-3 mb-5">
                 <div className="relative w-12 h-12 flex-shrink-0 bg-white/5 rounded-full p-2 border border-white/10">
                   <Image
-                    src="/images/logo.png"
+                    src="/images/logo.webp"
                     alt="Honey Family Garden Logo"
                     fill
                     className="object-contain p-1.5"

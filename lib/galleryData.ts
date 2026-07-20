@@ -28,9 +28,9 @@ const icons: Record<string, string> = {
 
 export const galleryImages: GalleryImage[] = [
   // Halls
-  { id: "h1", src: "/images/indoor.png", category: "halls", title: "Indoor Banquet Hall", uploadedAt: "2025-06-15" },
-  { id: "h2", src: "/images/indoor2.png", category: "halls", title: "AC Hall Interior", uploadedAt: "2025-06-12" },
-  { id: "h3", src: "/images/outdoor.jpeg", category: "halls", title: "Outdoor Seating Area", uploadedAt: "2025-05-28" },
+  { id: "h1", src: "/images/indoor.webp", category: "halls", title: "Indoor Banquet Hall", uploadedAt: "2025-06-15" },
+  { id: "h2", src: "/images/indoor2.webp", category: "halls", title: "AC Hall Interior", uploadedAt: "2025-06-12" },
+  { id: "h3", src: "/images/outdoor.webp", category: "halls", title: "Outdoor Seating Area", uploadedAt: "2025-05-28" },
   { id: "h4", src: "/images/scene1.webp", category: "halls", title: "Garden Hall Entrance", uploadedAt: "2025-05-20" },
   
   // Events

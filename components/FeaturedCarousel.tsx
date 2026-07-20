@@ -8,21 +8,21 @@ import { gsap } from "gsap";
 const slides = [
   {
     id: 1,
-    src: "/images/carousel-1.jpg",
+    src: "/images/carousel-1.webp",
     alt: "Beautiful garden venue setup for wedding",
     label: "Garden Weddings",
     icon: "🌿",
   },
   {
     id: 2,
-    src: "/images/carousel-2.jpg",
+    src: "/images/carousel-2.webp",
     alt: "Elegant indoor AC hall with lighting",
     label: "Elegant Hall Events",
     icon: "✨",
   },
   {
     id: 3,
-    src: "/images/carousel-3.jpg",
+    src: "/images/carousel-3.webp",
     alt: "Multi-cuisine catering spread",
     label: "Exquisite Catering",
     icon: "🍽️",

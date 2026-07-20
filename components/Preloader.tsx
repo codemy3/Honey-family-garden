@@ -102,7 +102,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       <div className="relative w-48 h-48 sm:w-64 sm:h-64 overflow-hidden flex items-center justify-center rounded-2xl">
         <div className="absolute inset-0 opacity-20 filter grayscale">
           <Image
-            src="/images/logo.png"
+            src="/images/logo.webp"
             alt="Honey Family Garden Background Logo"
             fill
             className="object-contain"
@@ -117,7 +117,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           style={{ clipPath: "inset(100% 0% 0% 0%)" }}
         >
           <Image
-            src="/images/logo.png"
+            src="/images/logo.webp"
             alt="Honey Family Garden Logo"
             fill
             className="object-contain"

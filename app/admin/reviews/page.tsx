@@ -36,7 +36,7 @@ const mockReviews = [
     rating: 5,
     date: "August 15, 2025",
     comment: "An exceptional venue. The sharp, clean architectural lines of the indoor spaces contrasted beautifully with the lush outdoor greenery. Highly recommended for high-stakes events.",
-    image: "/images/hero.jpg"
+    image: "/images/hero.webp"
   }
 ];
 
@@ -168,7 +168,7 @@ export default function ReviewsPage() {
         {/* Parallax Background Botanical Sketch */}
         <div ref={bgRef} className="absolute top-[-5%] right-0 w-[80%] md:w-[50%] h-[110%] opacity-15 md:opacity-30 pointer-events-none z-0">
           <Image 
-            src="/images/about-bg.png" 
+            src="/images/about-bg.webp" 
             alt="Botanical Background" 
             fill 
             className="object-cover object-right mix-blend-multiply" 

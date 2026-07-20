@@ -33,7 +33,7 @@ export default function ContactContent() {
           ref={bgRef}
           className="absolute inset-0 w-full h-[140%] -top-[20%]"
           style={{
-            backgroundImage: "url('/images/hero.jpg')",
+            backgroundImage: "url('/images/hero.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             willChange: "transform",

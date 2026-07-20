@@ -193,7 +193,7 @@ export default function Hero() {
 
       {/* Single Continuous Background */}
       <div className="absolute inset-0 w-full h-full opacity-90 pointer-events-none z-0">
-        <Image src="/images/hero-background.png" alt="Botanical Architectural Sketch" fill className="object-cover object-center mix-blend-multiply" />
+        <Image src="/images/hero-background.webp" alt="Botanical Architectural Sketch" fill className="object-cover object-center mix-blend-multiply" />
       </div>
 
       <div
@@ -217,7 +217,7 @@ export default function Hero() {
           
           <img
             ref={mobileImageRef}
-            src="/images/hero.jpg"
+            src="/images/hero.webp"
             alt="Honey Family Garden Botanical Escape"
             className="absolute inset-0 w-full h-full object-cover block md:hidden z-[1]"
             style={{
@@ -233,7 +233,7 @@ export default function Hero() {
             muted={isMuted}
             playsInline
             preload="auto"
-            poster="/images/hero.jpg"
+            poster="/images/hero.webp"
             className="absolute inset-0 w-full h-full object-cover z-0"
             style={{
               filter: [

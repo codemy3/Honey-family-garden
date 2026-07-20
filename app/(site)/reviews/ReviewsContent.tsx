@@ -31,7 +31,7 @@ export default function ReviewsPage() {
           {/* Parallax Background Botanical Sketch */}
           <div className="js-parallax-bg absolute top-[-5%] right-0 w-[80%] md:w-[50%] h-[110%] opacity-15 md:opacity-30 pointer-events-none z-0">
             <Image 
-              src="/images/about-bg.png" 
+              src="/images/about-bg.webp" 
               alt="Botanical Background" 
               fill 
               className="object-cover object-right mix-blend-multiply" 

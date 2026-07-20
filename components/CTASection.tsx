@@ -67,7 +67,7 @@ export default function CTASection() {
       <div className="absolute inset-0 z-0 overflow-hidden">
         <Image
           ref={bgRef}
-          src="/images/hero.jpg"
+          src="/images/hero.webp"
           alt="Honey Family Garden cinematic background setup"
           fill
           sizes="100vw"

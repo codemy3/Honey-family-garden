@@ -317,7 +317,7 @@ export default function GalleryPage() {
       {/* --- SUPER SIZED HERO SECTION --- */}
       <section className="relative pt-40 md:pt-56 pb-20 md:pb-32 overflow-hidden">
         <div className="absolute top-[-5%] right-0 w-[90%] md:w-[60%] h-[120%] opacity-20 md:opacity-40 pointer-events-none z-0">
-          <Image src="/images/about-bg.png" alt="Botanical Background" fill className="object-cover object-right mix-blend-multiply" />
+          <Image src="/images/about-bg.webp" alt="Botanical Background" fill className="object-cover object-right mix-blend-multiply" />
         </div>
 
         <div className="max-w-[1400px] mx-auto px-5 md:px-10 relative z-10">
